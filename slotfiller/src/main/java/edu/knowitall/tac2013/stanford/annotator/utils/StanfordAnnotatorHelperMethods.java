@@ -280,7 +280,9 @@ public class StanfordAnnotatorHelperMethods {
 			if(xmlDoc.trim().isEmpty()){
 				return null;
 			}
+			System.out.println("Annotating xml DOC number " + docID );
 			document = new Annotation(xmlDoc);
+			System.out.println("Done Annotating xml DOC number " + docID );
 			try{
 			 corefPipeline.annotate(document);
 			 corefAnnotationMap.put(docID, document);
@@ -306,14 +308,16 @@ public class StanfordAnnotatorHelperMethods {
 		Map<Integer, CorefChain> graph = document.get(CorefChainAnnotation.class);
 		List<CorefMention> mentionsInOrder = graph.get(corefID).getMentionsInTextualOrder();
 
-		
+		System.out.println("Looking through coref mentions for doc " + docID );
 		for(CorefMention corefMention : mentionsInOrder){
 			if (corefMention.mentionSpan.trim().toLowerCase().equals(kbpEntityString.trim().toLowerCase())){
 				// this is a match and the originalInterval corefers to the kbpEntityString
 				// return the proper interval of this mention of the kbpEntityString
+				System.out.println("DONE Looking through coref mentions for doc " + docID +" found one");
 				return getCharIntervalFromCorefMention(document,corefMention.sentNum,corefMention.startIndex,corefMention.endIndex);
 			}
 		}
+		System.out.println("DONE Looking through coref mentions for doc " + docID +" Did not find one");
 		return null;
 	}
 }
