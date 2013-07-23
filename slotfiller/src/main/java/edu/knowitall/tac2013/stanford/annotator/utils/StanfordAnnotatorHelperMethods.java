@@ -280,11 +280,11 @@ public class StanfordAnnotatorHelperMethods {
 			if(xmlDoc.trim().isEmpty()){
 				return null;
 			}
-			System.out.println("Annotating xml DOC number " + docID );
 			document = new Annotation(xmlDoc);
-			System.out.println("Done Annotating xml DOC number " + docID );
 			try{
+				System.out.println("Annotating xml DOC number " + docID );
 			 corefPipeline.annotate(document);
+				System.out.println("Done Annotating xml DOC number " + docID );
 			 corefAnnotationMap.put(docID, document);
 			}
 			catch (Exception e){
